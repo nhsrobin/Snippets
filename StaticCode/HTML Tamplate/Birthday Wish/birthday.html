@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="bn" class="h-full w-full overflow-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>শুভ জন্মদিন, প্রিয়তমা! ❤️ | Shubho Jonmodin</title>
+    <!-- Tailwind CSS v3 via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&family=Great+Vibes&family=Hind+Siliguri:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <style>
+      /* ১০০% ভিউপোর্ট কাস্টম সিএসএস কনফিগারেশন - স্ক্রলবার সম্পূর্ণ বন্ধ রাখার জন্য */
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      ::-webkit-scrollbar { display: none; }
+
+      /* ফন্ট স্টাইলসমূহ */
+      .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+      .font-sans { font-family: 'Outfit', sans-serif; }
+      .font-cursive { font-family: 'Great Vibes', cursive; }
+      .font-bangla { font-family: 'Baloo Da 2', 'Hind Siliguri', sans-serif; }
+      .font-bengali { font-family: 'Hind Siliguri', 'Baloo Da 2', sans-serif; }
+
+      /* গ্লো অ্যান্ড শ্যাডো ইফেক্ট */
+      .text-glow-rose {
+        text-shadow: 0 0 14px rgba(244, 63, 94, 0.7), 0 0 28px rgba(244, 63, 94, 0.4), 0 0 45px rgba(225, 29, 72, 0.3);
+      }
+      .bg-radial-glow {
+        background: radial-gradient(circle, rgba(244, 63, 94, 0.22) 0%, rgba(225, 29, 72, 0.1) 45%, rgba(13, 12, 13, 0) 80%);
+      }
+
+      /* হেডারের ধীর ভাসমান অ্যানিমেশন */
+      @keyframes float-gentle {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-6px) scale(1.01); }
+      }
+      .animate-float {
+        animation: float-gentle 4s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-[#0d0c0d] text-slate-100 overflow-hidden select-none relative w-full h-full flex flex-col justify-between font-bangla">
+    
+    <!-- ব্যাকগ্রাউন্ড অ্যারোমা গ্লো লেয়ার -->
+    <div class="fixed inset-0 pointer-events-none z-0 bg-radial-glow"></div>
+
+    <!-- পার্টিকেল ক্যানভাস লেয়ার (হৃদয় ও লাভ স্নো অ্যানিমেশনের জন্য) -->
+    <canvas id="particleCanvas" class="fixed inset-0 z-10 w-full h-full pointer-events-none"></canvas>
+
+    <!-- টপ হেডার প্যানেল (জন্মদিনের মূল শুভেচ্ছা বার্তা) -->
+    <header class="relative z-20 w-full pt-3 sm:pt-5 pb-1 px-4 text-center">
+      <div class="max-w-3xl mx-auto space-y-1 sm:space-y-1.5 animate-float">
+        
+        <!-- কার্সিভ স্টাইলের ছোট রোমান্টিক লাইন (প্রয়োজনে আপনি পরিবর্তন করতে পারেন) -->
+        <span class="font-cursive text-2xl sm:text-4xl md:text-5xl text-rose-300/95 tracking-wide block drop-shadow-md">
+          To my sweetest Priyotoma...
+        </span>
+
+        <!-- মূল বড় ফন্টের বাংলা শুভ জন্মদিন টাইটেল -->
+        <h1 class="font-bangla text-3xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-rose-400 to-pink-300 text-glow-rose leading-tight py-0.5 tracking-tight">
+          শুভ জন্মদিন, মায়াবতী! ❤️
+        </h1>
+
+        <!-- ইংরেজি সাবটাইটেল -->
+        <p class="font-sans text-[10px] sm:text-xs tracking-[0.28em] text-rose-300/80 uppercase font-semibold">
+          Shubho Jonmodin, My Sunshine ✨
+        </p>
+      </div>
+    </header>
+
+    <!-- সেন্ট্রাল স্পেসার (যেখানে লাভ শেপটি ক্যানভাসে তৈরি হবে) -->
+    <main class="relative z-20 flex-1 w-full min-h-[120px] sm:min-h-[200px] max-h-[320px] flex items-center justify-center pointer-events-none"></main>
+
+    <!-- ফুটার প্যানেল ও মিউজিক কন্ট্রোল -->
+    <footer class="relative z-20 w-full pb-2 sm:pb-4 pt-1 px-4 flex flex-col items-center gap-1.5 sm:gap-2 text-center">
+      
+      <!-- স্ট্যাটাস ব্যাজ -->
+      <div id="statusBadge" class="inline-flex items-center gap-2 px-3.5 py-1 bg-rose-950/60 backdrop-blur-md border border-rose-500/30 rounded-full text-rose-200 text-[10px] sm:text-xs tracking-wider uppercase font-sans shadow-[0_0_15px_rgba(244,63,94,0.25)]">
+        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+        <span class="font-medium">Pieces of my heart coming together for you... 💖</span>
+      </div>
+
+      <!-- রোমান্টিক উদ্ধৃতি / বার্তা -->
+      <p class="font-bengali text-[11px] sm:text-xs md:text-sm text-rose-200/75 max-w-md italic font-light px-2 leading-relaxed">
+        "তোমার হাসিতে যে আলো ছড়ায়, তা যেন সারা জীবন এভাবে আমায় মুগ্ধ করে রাখে..."
+      </p>
+
+      <!-- ব্যাকগ্রাউন্ড মিউজিক প্লে টগল বাটন -->
+      <button 
+        id="soundToggle"
+        class="mt-0.5 px-4 py-1.5 bg-rose-900/40 hover:bg-rose-900/70 border border-rose-500/40 hover:border-rose-400/80 rounded-full text-rose-200 text-xs font-sans tracking-wide flex items-center gap-2 transition-all duration-300 cursor-pointer shadow-md hover:scale-105 active:scale-95"
+      >
+        <span id="soundIcon">🎵</span>
+        <span id="soundLabel">Play Romantic Music</span>
+      </button>
+
+      <!-- ডেভেলপার ক্রেডিট লিঙ্ক -->
+      <div class="mt-1 text-[10px] text-rose-300/40 font-sans tracking-widest uppercase">
+        Developed by <a href="https://facebook.com/nhsrobin" target="_blank" rel="noopener noreferrer" class="text-rose-400 hover:text-rose-200 underline underline-offset-2 transition-colors font-medium">TasfiwnLabs</a>
+      </div>
+    </footer>
+
+    <!-- স্ক্রিপ্ট লজিক: ক্যানভাস লাভ এসেম্বলি, বাবল ইফেক্ট ও অনলাইন/সিন্থেসাইজার মিউজিক -->
+    <script>
+      // =========================================================================
+      // ১. অনলেভেল কাস্টম মিউজিক লিঙ্ক কনফিগারেশন:
+      // নিচে সরাসরি কোনো গান বা MP3 এর অনলাইন লিঙ্ক বসিয়ে দিন (যেমন: "https://example.com/romantic.mp3")।
+      // লিঙ্ক না থাকলে বা ভুল থাকলে সিস্টেম স্বয়ংক্রিয়ভাবে ইন-বিল্ট মেলোডিক পিয়ানো মিউজিক প্লে করবে!
+      // =========================================================================
+      const CUSTOM_AUDIO_URL = ""; 
+
+      const canvas = document.getElementById('particleCanvas');
+      const ctx = canvas.getContext('2d');
+
+      let particles = [];
+      let soundEnabled = false;
+      let audioCtx = null;
+      let bgAudioElement = null;
+
+      // কাস্টম অডিও এলিমেন্ট সেটআপ
+      if (CUSTOM_AUDIO_URL && CUSTOM_AUDIO_URL.trim().length > 5) {
+        bgAudioElement = new Audio(CUSTOM_AUDIO_URL.trim());
+        bgAudioElement.loop = true;
+      }
+
+      // =========================================================================
+      // ২. লাভ জিওমেট্রি পজিশনিং (গণিত নির্ভর আউটলাইন ও ইন্টারিয়র ফিল্ড পয়েন্ট হিসাব)
+      // =========================================================================
+      const getHeartPoints = (centerX, centerY, scale, count) => {
+        const pts = [];
+        const outlineCount = Math.floor(count * 0.3);
+        const interiorCount = count - outlineCount;
+
+        // বাইরের শেপ আউটলাইন পয়েন্ট
+        for (let i = 0; i < outlineCount; i++) {
+          const t = (i / outlineCount) * Math.PI * 2;
+          const x = 16 * Math.pow(Math.sin(t), 3);
+          const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+          pts.push({ x: centerX + x * scale, y: centerY - y * scale });
+        }
+
+        // ভেতরের ভরাট পয়েন্ট (লাভকে আরও ঘন ও চমৎকার করতে)
+        for (let i = 0; i < interiorCount; i++) {
+          const t = Math.random() * Math.PI * 2;
+          const r = Math.sqrt(Math.random()) * 0.96;
+          const x = 16 * Math.pow(Math.sin(t), 3);
+          const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+          pts.push({ x: centerX + x * r * scale, y: centerY - y * r * scale });
+        }
+        return pts;
+      };
+
+      // =========================================================================
+      // ৩. ক্যানভাস রেন্ডারিং ফাংশন (লাভ শেপ ও পেটাল শেপ আঁকার জন্য)
+      // =========================================================================
+      const drawHeartShape = (ctx, x, y, size, color, alpha) => {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        const topCurveHeight = size * 0.3;
+        ctx.moveTo(x, y + topCurveHeight);
+        ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+        ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + size, x, y + size);
+        ctx.bezierCurveTo(x, y + size, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+        ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      };
+
+      const drawPetalShape = (ctx, x, y, size, color, alpha, angle) => {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, size, size * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      };
+
+      // =========================================================================
+      // ৪. প্রারম্ভিক পার্টিকেল ইনিশিয়ালাইজেশন
+      // =========================================================================
+      const initParticles = () => {
+        particles = [];
+        const width = canvas.width;
+        const height = canvas.height;
+
+        // গোলাপী ও লাল শেডের নান্দনিক কালার প্যালেট
+        const colors = [
+          '#be123c', '#e11d48', '#f43f5e', '#ec4899', '#db2777', '#c084fc', '#dc2626', '#fda4af', '#9f1239', '#fff1f2'
+        ];
+
+        const numHeart = 750; // দ্রুত সময়ে লাভ শেপ ঘন করার জন্য পয়েন্ট সংখ্যা
+        const centerX = width / 2;
+        const centerY = height * 0.44;
+        const scale = Math.min(width * 0.025, height * 0.023, 15.0);
+        const heartPts = getHeartPoints(centerX, centerY, scale, numHeart);
+
+        // দ্রুতগতিতে এসেম্বল হওয়ার পার্টিকেলসমূহ
+        for (let i = 0; i < numHeart; i++) {
+          const pt = heartPts[i];
+          const isHeart = Math.random() > 0.35;
+          particles.push({
+            x: Math.random() * width,
+            y: -20 - Math.random() * 300,
+            vx: (Math.random() - 0.5) * 2.5,
+            vy: 2.0 + Math.random() * 3.0,
+            size: isHeart ? 3.5 + Math.random() * 5.5 : 4.5 + Math.random() * 6.5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 0.85 + Math.random() * 0.15,
+            type: isHeart ? 'heart' : 'petal',
+            angle: Math.random() * Math.PI * 2,
+            spin: (Math.random() - 0.5) * 0.05,
+            targetX: pt.x,
+            targetY: pt.y,
+            phase: Math.random() * Math.PI * 2,
+            assembleDelay: Math.random() * 280, // দ্রুত এসেম্বল
+            state: 'falling'
+          });
+        }
+
+        // ব্যাকগ্রাউন্ডের হাল্কা লাভ স্নো
+        for (let i = 0; i < 150; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 1.8,
+            vy: 1.5 + Math.random() * 2.5,
+            size: Math.random() > 0.5 ? 3 + Math.random() * 4 : 4 + Math.random() * 5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 0.5 + Math.random() * 0.4,
+            type: Math.random() > 0.5 ? 'heart' : 'petal',
+            angle: Math.random() * Math.PI * 2,
+            spin: (Math.random() - 0.5) * 0.04,
+            targetX: -999,
+            targetY: -999,
+            phase: Math.random() * Math.PI * 2,
+            assembleDelay: 999999,
+            state: 'falling'
+          });
+        }
+      };
+
+      // স্ক্রিন রিসাইজ এডজাস্টমেন্ট
+      const resizeCanvas = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+      };
+
+      window.addEventListener('resize', resizeCanvas);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+
+      // =========================================================================
+      // ৫. ইন্টারঅ্যাক্টিভ বাবল লাভ ইফেক্ট (মাউস সরানো বা টাচ করার সময়)
+      // =========================================================================
+      const spawnBubbleHeart = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        const bubbleColors = ['#f43f5e', '#ec4899', '#fda4af', '#fb7185', '#e11d48', '#c084fc', '#f472b6', '#ffffff'];
+        const count = 3;
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: x + (Math.random() - 0.5) * 18,
+            y: y + (Math.random() - 0.5) * 18,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: -1.8 - Math.random() * 2.4, // ওপরের দিকে বাবল ফেটে ওঠার মতো ওঠা
+            size: 3 + Math.random() * 4,
+            maxSize: 8 + Math.random() * 6,
+            color: bubbleColors[Math.floor(Math.random() * bubbleColors.length)],
+            alpha: 0.9,
+            type: 'bubble_heart',
+            angle: (Math.random() - 0.5) * 0.4,
+            spin: (Math.random() - 0.5) * 0.06,
+            targetX: -999,
+            targetY: -999,
+            phase: Math.random() * Math.PI * 2,
+            assembleDelay: 0,
+            state: 'falling'
+          });
+        }
+      };
+
+      window.addEventListener('mousemove', (e) => spawnBubbleHeart(e.clientX, e.clientY), { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) {
+          spawnBubbleHeart(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      // =========================================================================
+      // ৬. মূল অ্যানিমেশন লুপ (লাভ ভরাট রাখা ও স্নো গতির হিসাব)
+      // =========================================================================
+      let startTime = Date.now();
+      const animationLoop = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const elapsed = Date.now() - startTime;
+        const width = canvas.width;
+        const height = canvas.height;
+
+        // অবিরত ওপর থেকে এলিমেন্ট পড়া (কছু এসেম্বল হয়ে লাভকে আরও ঘন করবে, আর কিছু নিচে ঝরে পড়বে)
+        for (let k = 0; k < 2; k++) {
+          if (Math.random() < 0.80) {
+            const centerX = width / 2;
+            const centerY = height * 0.44;
+            const scale = Math.min(width * 0.025, height * 0.023, 15.0);
+
+            const colors = ['#be123c', '#e11d48', '#f43f5e', '#ec4899', '#db2777', '#c084fc', '#dc2626', '#fda4af', '#9f1239'];
+            const isHeartAssembly = Math.random() < 0.78; // ৭৮% লাভকে গাড় করবে, ২২% নিচে স্নো হিসেবে ঝরবে
+
+            let targetX = -999;
+            let targetY = -999;
+
+            if (isHeartAssembly) {
+              const t = Math.random() * Math.PI * 2;
+              const r = Math.sqrt(Math.random()) * 0.96;
+              const tx = 16 * Math.pow(Math.sin(t), 3);
+              const ty = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+              targetX = centerX + tx * r * scale;
+              targetY = centerY - ty * r * scale;
+            }
+
+            particles.push({
+              x: Math.random() * width,
+              y: -20 - Math.random() * 40,
+              vx: (Math.random() - 0.5) * 2.4,
+              vy: 2.4 + Math.random() * 3.2, // মাঝারি-দ্রুতগতির প্রাকৃতিক পড়া
+              size: Math.random() > 0.5 ? 3.5 + Math.random() * 4.0 : 2.5 + Math.random() * 4.5,
+              color: colors[Math.floor(Math.random() * colors.length)],
+              alpha: 0.75 + Math.random() * 0.25,
+              type: Math.random() > 0.35 ? 'heart' : 'petal',
+              angle: Math.random() * Math.PI * 2,
+              spin: (Math.random() - 0.5) * 0.06,
+              targetX: targetX,
+              targetY: targetY,
+              phase: Math.random() * Math.PI * 2,
+              assembleDelay: isHeartAssembly ? Math.random() * 100 : 999999,
+              state: 'falling'
+            });
+          }
+        }
+
+        const updated = [];
+        particles.forEach((p) => {
+          if (p.type === 'heart' || p.type === 'bubble_heart') {
+            drawHeartShape(ctx, p.x, p.y, p.size, p.color, p.alpha);
+          } else if (p.type === 'petal') {
+            drawPetalShape(ctx, p.x, p.y, p.size, p.color, p.alpha, p.angle);
+          }
+
+          if (p.type === 'bubble_heart') {
+            // বাবল মাউস পার্টিকেল মোশন
+            p.x += p.vx + Math.sin(elapsed * 0.003 + p.phase) * 0.7;
+            p.y += p.vy;
+            p.size = Math.min(p.maxSize, p.size + 0.1);
+            p.alpha -= 0.012;
+            p.angle += p.spin;
+            if (p.alpha > 0) {
+              updated.push(p);
+            }
+          } else {
+            updated.push(p);
+
+            if (p.targetX !== -999) {
+              if (p.state === 'falling' && elapsed > p.assembleDelay) {
+                p.state = 'assembling';
+              }
+              if (p.state === 'assembling') {
+                const dx = p.targetX - p.x;
+                const dy = p.targetY - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 5) {
+                  p.state = 'assembled';
+                  p.x = p.targetX;
+                  p.y = p.targetY;
+                } else {
+                  p.vx += (dx / distance) * 0.65;
+                  p.vy += (dy / distance) * 0.65;
+                  p.vx *= 0.80; p.vy *= 0.80;
+                  p.x += p.vx; p.y += p.vy;
+                }
+                p.angle += p.spin;
+              } else if (p.state === 'assembled') {
+                const hover = 3;
+                p.x = p.targetX + Math.cos(elapsed * 0.0016 + p.phase) * (hover * 0.5);
+                p.y = p.targetY + Math.sin(elapsed * 0.002 + p.phase) * hover;
+                p.alpha = 0.85 + Math.sin(elapsed * 0.001 + p.phase) * 0.15;
+              } else {
+                p.y += p.vy;
+                p.x += p.vx + Math.sin(elapsed * 0.0015 + p.phase) * 0.6;
+                p.angle += p.spin;
+              }
+            } else {
+              // সাধারণ স্নো ড্রপ
+              p.y += p.vy;
+              p.x += p.vx + Math.sin(elapsed * 0.0015 + p.phase) * 0.8;
+              p.angle += p.spin;
+              if (p.y > height + 30) {
+                p.y = -30;
+                p.x = Math.random() * width;
+                p.vy = 2.4 + Math.random() * 3.0;
+              }
+            }
+          }
+        });
+
+        particles = updated;
+        requestAnimationFrame(animationLoop);
+      };
+
+      requestAnimationFrame(animationLoop);
+
+      // =========================================================================
+      // ৭. ওয়েভ অডিও রোমান্টিক পিয়ানো অডিও সিন্থেসাইজার (কাস্টম লিঙ্ক না থাকলে)
+      // =========================================================================
+      const soundToggleBtn = document.getElementById('soundToggle');
+      const soundIcon = document.getElementById('soundIcon');
+      const soundLabel = document.getElementById('soundLabel');
+
+      let pianoInterval = null;
+
+      // ক্লাসিক্যাল রোমান্টিক পিয়ানো নোটস
+      const chordProgressions = [
+        [261.63, 329.63, 392.00, 493.88, 587.33, 659.25], // Cmaj9
+        [220.00, 261.63, 329.63, 392.00, 523.25, 659.25], // Am9
+        [174.61, 261.63, 329.63, 392.00, 523.25, 698.46], // Fmaj7
+        [196.00, 261.63, 293.66, 392.00, 493.88, 587.33]  // G11
+      ];
+
+      let chordIndex = 0;
+
+      const playPianoNote = (freq, delay, duration = 2.5, volume = 0.08) => {
+        if (!audioCtx || audioCtx.state === 'closed') return;
+
+        const startTime = audioCtx.currentTime + delay;
+
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, startTime);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(freq * 2, startTime);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1200, startTime);
+        filter.frequency.exponentialRampToValueAtTime(300, startTime + duration);
+
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(volume, startTime + 0.04);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc1.start(startTime);
+        osc2.start(startTime);
+        osc1.stop(startTime + duration + 0.1);
+        osc2.stop(startTime + duration + 0.1);
+      };
+
+      const playRomanticPianoArpeggio = () => {
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+
+          const notes = chordProgressions[chordIndex];
+          chordIndex = (chordIndex + 1) % chordProgressions.length;
+
+          notes.forEach((freq, i) => {
+            playPianoNote(freq, i * 0.28, 3.2, 0.07);
+          });
+
+          playPianoNote(notes[0] / 2, 0.0, 4.0, 0.09);
+
+        } catch (e) {
+          console.log('Audio Context Error:', e);
+        }
+      };
+
+      // সাউন্ড প্লে/পজ বাটন ইভেন্ট
+      soundToggleBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+
+        if (soundEnabled) {
+          soundIcon.textContent = '🎶';
+          soundToggleBtn.classList.add('bg-rose-800/80', 'border-rose-400');
+
+          if (bgAudioElement) {
+            bgAudioElement.play().then(() => {
+              soundLabel.textContent = 'Playing Background Track ✨';
+            }).catch((err) => {
+              console.warn('Custom audio link error, falling back to piano synthesis:', err);
+              soundLabel.textContent = 'Playing Piano Music ✨';
+              playRomanticPianoArpeggio();
+              pianoInterval = setInterval(() => {
+                if (soundEnabled) playRomanticPianoArpeggio();
+              }, 2400);
+            });
+          } else {
+            soundLabel.textContent = 'Playing Piano Music ✨';
+            playRomanticPianoArpeggio();
+            pianoInterval = setInterval(() => {
+              if (soundEnabled) playRomanticPianoArpeggio();
+            }, 2400);
+          }
+        } else {
+          soundIcon.textContent = '🎵';
+          soundLabel.textContent = 'Play Romantic Music';
+          soundToggleBtn.classList.remove('bg-rose-800/80', 'border-rose-400');
+          
+          if (bgAudioElement) {
+            bgAudioElement.pause();
+          }
+          if (pianoInterval) {
+            clearInterval(pianoInterval);
+            pianoInterval = null;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+
